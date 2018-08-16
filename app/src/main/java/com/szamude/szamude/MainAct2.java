@@ -4,11 +4,14 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.ColorSpace;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -19,6 +22,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -86,10 +90,7 @@ public class MainAct2 extends AppCompatActivity
                 //what to do when the parsing is done
                 //the Array List contains all article's data. For example you can use it for your adapter.
                 List<String> abos = new ArrayList<String>(getAbos());
-                LinearLayout lay = (LinearLayout) findViewById(R.id.cards);
-                if(lay.getChildCount() > 0) {
-                    lay.removeAllViews();
-                }
+                clearAllCards();
                 boolean addNothing = true;
                 for (int x=0;x<list.size();x++) {
                     if(abosOnly){
@@ -106,7 +107,7 @@ public class MainAct2 extends AppCompatActivity
                     }
                 }
                 if(addNothing == true) {
-                    addCard("Ni zamud.");
+                   noDelays();
                 }
             }
 
@@ -128,21 +129,43 @@ public class MainAct2 extends AppCompatActivity
         }
     }
     public void addCard(String name) {
-        CardView card = new CardView(getApplicationContext());
-        // Set cardView content padding
-        card.setContentPadding(15, 15, 15, 15);
-        //card.setCardBackgroundColor(Color.parseColor("#FFC6D6C3"));
-        card.setMaxCardElevation(15);
-        card.setCardElevation(9);
-        TextView tv = new TextView(getApplicationContext());
-        tv.setText(name);
-        tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20);
-        tv.setTextColor(Color.BLACK);
-        card.addView(tv);
-        LinearLayout lay = (LinearLayout) findViewById(R.id.cards);
-        lay.addView(card);
+
+        CardView b = new CardView(getApplicationContext());
+        b.setContentPadding(0,15,0,15);
+// sets width to wrap content and height to 10 dp ->
+        View child = getLayoutInflater().inflate(R.layout.delayinfo, null);
+        TextView t = child.findViewById(R.id.tno1);
+        String w = name.substring(name.indexOf("the train ")+10,name.indexOf(" ",name.indexOf("the train ")+10));
+        t.setText(w);
+        t = child.findViewById(R.id.sta1);
+        w = name.substring(name.indexOf("on station ")+11,name.indexOf(" - ", name.indexOf("on station ")+11));
+        t.setText(w);
+        t = child.findViewById(R.id.del1);
+        w=name.substring(name.indexOf(" - ",name.indexOf("on station ")+11)+3,name.indexOf(" min",name.indexOf(" - ",name.indexOf("on station ")+10)))+"'";
+        if(w.length()>5) t.setTextSize(10);
+        t.setText(w);
+        b.addView(child);
+        LinearLayout lay = (LinearLayout) findViewById(R.id.linear);
+        lay.addView(b);
+
     }
 
+    public void noDelays() {
+
+        CardView b = new CardView(getApplicationContext());
+        b.setContentPadding(0,15,0,15);
+        View child = getLayoutInflater().inflate(R.layout.nodelays, null);
+        b.addView(child);
+        LinearLayout lay = (LinearLayout) findViewById(R.id.linear);
+        lay.addView(b);
+
+    }
+    public void clearAllCards() {
+        LinearLayout lay = (LinearLayout) findViewById(R.id.linear);
+        if(lay.getChildCount() > 0) {
+            lay.removeAllViews();
+        }
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
