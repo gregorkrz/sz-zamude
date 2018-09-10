@@ -8,11 +8,10 @@
     tools:context="com.szamude.szamude.Timetables">
 
     <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="173dp"
-        android:layout_height="446dp"
-        android:layout_marginBottom="8dp"
+        android:layout_height="372dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -35,6 +34,18 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.642"></LinearLayout>
     </ScrollView>
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="322dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="8dp"
+        android:text='Podatki o voznih redih se prenesejo s spletne strani slo-zeleznice.si. Za natančen vir izberite vozni red in pritisnite na "Kopiraj URL"'
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
 
 
 </android.support.constraint.ConstraintLayout>

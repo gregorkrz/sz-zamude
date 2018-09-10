@@ -17,7 +17,7 @@
             <intent-filter>
                 <action
                     android:name="android.intent.action.MAIN"
-                    android:icon="@drawable/ic_szlogo" />
+                    android:icon="@drawable/ic_train_black_24dp" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
